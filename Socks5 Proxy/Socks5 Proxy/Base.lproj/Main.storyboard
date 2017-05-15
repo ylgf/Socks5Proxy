@@ -60,11 +60,10 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
-                                        <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
-                                            <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="qaZ-4w-aoO"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="Start..." keyEquivalent="b" id="9bv-io-dqd"/>
+                                        <menuItem title="Show QCCode" keyEquivalent="p" id="Bp4-jM-56a"/>
+                                        <menuItem title="Scan QCCode" keyEquivalent="o" id="cqq-Nl-7XA"/>
+                                        <menuItem title="Stop" keyEquivalent="s" id="ELg-f3-GKZ"/>
                                     </items>
                                 </menu>
                             </menuItem>
@@ -72,9 +71,9 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                                     <items>
-                                        <menuItem title="Socks5 Proxy Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                                        <menuItem title="Feed Back" keyEquivalent="?" id="FKE-Sm-Kum">
                                             <connections>
-                                                <action selector="showHelp:" target="Ady-hI-5gd" id="y7X-2Q-9no"/>
+                                                <action selector="FeedBack:" target="Voe-Tx-rLC" id="lww-qm-NJL"/>
                                             </connections>
                                         </menuItem>
                                     </items>

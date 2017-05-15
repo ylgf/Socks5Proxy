@@ -28,6 +28,17 @@
     [_methodTextField addItemsWithObjectValues:[SPServer encrpyTypes]];
     [_methodTextField selectItemAtIndex:0];
     
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    
+    NSString *host = [userDefault stringForKey:@"Socks5ProxyLocalHost"];
+    if (host) {
+        [_hostLabel setStringValue: host];
+    }
+    
+    NSInteger hostPort = [userDefault integerForKey:@"Socks5ProxyLocalHostPort"];
+    if (hostPort) {
+        [_PortLabel setIntegerValue:hostPort];
+    }
 }
 
 - (IBAction)start:(id)sender {
@@ -44,7 +55,6 @@
     
     [_sendTF setStringValue:@""];
     [_returnTF setStringValue:@""];
-    [self updateUI];
 
     [_server start];
 }
@@ -58,16 +68,15 @@
     if (!_server) {
         [_returnTF setStringValue:@"请先点击开始"];
     }
+    
+    [[NSUserDefaults standardUserDefaults] setInteger:_PortLabel.integerValue forKey:@"Socks5ProxyLocalHostPort"];
+    [[NSUserDefaults standardUserDefaults] setValue:_hostLabel.stringValue forKey:@"Socks5ProxyLocalHost"];
+    
     [_server sendStringToRemote:_sendTF.stringValue];
 }
 
 - (IBAction)Descrypt:(id)sender {
     
 }
-
-- (void)updateUI {
-    
-}
-
 
 @end
