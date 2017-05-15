@@ -9,6 +9,7 @@
 #import "SPProxyConnect.h"
 #import "GCDAsyncSocket.h"
 #import "SPSocketUtil.h"
+#import "NSData+SPAES.h"
 
 @interface SPProxyConnect()
 @property (nonatomic, strong) GCDAsyncSocket *remoteSocket;
@@ -86,9 +87,9 @@
 }
 
 - (void)receiveDataFromRemote:(NSData *)data {
-    
+    NSData *correctData = [data aes256_decrypt:@"helloworld"];
 //    NSData *currentData = [NSData datawithbytes]
-    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSString *string = [[NSString alloc] initWithData:correctData encoding:NSUTF8StringEncoding];
     NSDictionary *dic = @{@"info" : string , @"socket" : self};
     [[NSNotificationCenter defaultCenter] postNotificationName:receiveStringNotification object:nil userInfo:dic];
 }

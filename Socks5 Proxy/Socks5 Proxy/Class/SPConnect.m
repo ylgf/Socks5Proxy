@@ -8,6 +8,7 @@
 
 #import "SPConnect.h"
 #import "SPSocketUtil.h"
+#import "NSData+SPAES.h"
 
 @interface SPRemoteConfig()
 
@@ -93,7 +94,7 @@
         
         [data appendData:_currentData];
         
-        return [data copy];
+        return [[data copy] aes256_encrypt:@"helloworld"];
     }
     
     return nil;
