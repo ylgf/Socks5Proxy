@@ -10,7 +10,7 @@
 
 @interface SPServer : NSObject
 
-- (instancetype)initWithHost:(NSString *)address port:(int)port encryptionType:(NSString *)type;
+- (instancetype)initWithHost:(NSString *)address port:(NSInteger)port encryptionType:(NSString *)type;
 - (void)start;
 - (void)stop;
 - (void)sendStringToRemote:(NSString *)string;

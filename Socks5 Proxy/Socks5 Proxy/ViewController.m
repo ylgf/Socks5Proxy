@@ -14,6 +14,8 @@
 @property (nonatomic, strong) SPServer *server;
 @property (nonatomic, copy) NSString *host;
 @property (nonatomic, assign) int port;
+@property (weak) IBOutlet NSTextField *hostLabel;
+@property (weak) IBOutlet NSTextField *PortLabel;
 
 @end
 
@@ -22,9 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _host = @"127.0.0.1";
-    _port = 55555;
-    
     [_methodTextField removeAllItems];
     [_methodTextField addItemsWithObjectValues:[SPServer encrpyTypes]];
     [_methodTextField selectItemAtIndex:0];
@@ -32,8 +31,16 @@
 }
 
 - (IBAction)start:(id)sender {
+    
+    if (!_hostLabel.stringValue || !_PortLabel.integerValue) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setMessageText:@"请填写连接地址和端口"];
+        [alert addButtonWithTitle:@"好的"];
+        [alert runModal];
+        return ;
+    }
 
-    _server = [[SPServer alloc] initWithHost:_host port:_port encryptionType: [[SPServer encrpyTypes] objectAtIndex:_methodTextField.indexOfSelectedItem]];
+    _server = [[SPServer alloc] initWithHost:_hostLabel.stringValue port:_PortLabel.integerValue encryptionType: [[SPServer encrpyTypes] objectAtIndex:_methodTextField.indexOfSelectedItem]];
     
     [_sendTF setStringValue:@""];
     [_returnTF setStringValue:@""];
@@ -59,8 +66,7 @@
 }
 
 - (void)updateUI {
-    [_hostLabel setStringValue:_host];
-    [_PortLabel setStringValue:[NSString stringWithFormat:@"%d", _port]];
+    
 }
 
 

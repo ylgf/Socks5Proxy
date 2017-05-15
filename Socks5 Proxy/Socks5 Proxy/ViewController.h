@@ -10,8 +10,6 @@
 
 @interface ViewController : NSViewController
 
-@property (weak) IBOutlet NSTextField *hostLabel;
-@property (weak) IBOutlet NSTextField *PortLabel;
 @property (weak) IBOutlet NSButton *StartButton;
 @property (weak) IBOutlet NSButton *StopButton;
 @property (weak) IBOutlet NSComboBox *methodTextField;

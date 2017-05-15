@@ -14,7 +14,7 @@
 @interface SPServer()<GCDAsyncSocketDelegate>
 
 @property (nonatomic, strong) NSString *address;
-@property (nonatomic, assign) int port;
+@property (nonatomic, assign) NSInteger port;
 @property (nonatomic, strong) NSMutableArray<SPConnect *> *connects;
 @property (nonatomic, copy) NSString *encryptionType;
 @property (nonatomic, strong) GCDAsyncSocket *localSocket;
@@ -27,7 +27,7 @@
     return @[@"aes_256_cfb", @"aes_256_ctr"];
 }
 
-- (instancetype)initWithHost:(NSString *)address port:(int)port encryptionType:(NSString *)type {
+- (instancetype)initWithHost:(NSString *)address port:(NSInteger)port encryptionType:(NSString *)type {
     self = [super init];
     if (self) {
         _address = address;
