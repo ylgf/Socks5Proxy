@@ -7,7 +7,7 @@
 //
 
 #import "SPConnect.h"
-#import "SPSocketUtil.m"
+#import "SPSocketUtil.h"
 
 @interface SPRemoteConfig()
 
@@ -28,12 +28,6 @@
 }
 
 @end
-
-typedef NS_ENUM(NSInteger, SPConnectStatus) {
-    SPCheckSOCKSVersionStatus = 0,
-    SPCheckAuthStatus = 1,
-    SPSendMessageStatus = 2,
-};
 
 @interface SPConnect()<GCDAsyncSocketDelegate>
 
@@ -129,11 +123,43 @@ typedef NS_ENUM(NSInteger, SPConnectStatus) {
 
 #pragma mark - delegate
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-    NSLog(@"readData Sock:%@", sock);
-    NSLog(@"data:%@", data);
-    
-    
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
+    if (sock == _remoteSocket) {
+        switch (tag) {
+            case SPCheckSOCKSVersionStatus:
+                [sock readDataWithTimeout:-1 tag:SPCheckSOCKSVersionStatus];
+                break;
+            case SPCheckAuthStatus:
+                [sock readDataWithTimeout:-1 tag:SPCheckAuthStatus];
+                break;
+            case SPSendMessageStatus:
+                [sock readDataWithTimeout:-1 tag:SPSendMessageStatus];
+                break;
+        }
+    }
 }
+
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+    
+    if (sock == _remoteSocket) {
+        switch (tag) {
+            case SPCheckSOCKSVersionStatus:
+                [sock writeData:[self makeUpSendData:SPSendMessageStatus] withTimeout:-1 tag:SPCheckAuthStatus];
+                break;
+            case SPCheckAuthStatus:
+                [sock writeData:[self makeUpSendData:SPSendMessageStatus] withTimeout:-1 tag:SPSendMessageStatus];
+                break;
+            case SPSendMessageStatus:
+                [self afterReceiveData:data];
+                break;
+        }
+    }
+}
+
+- (void)afterReceiveData:(NSData *)data {
+    NSDictionary *dic = @{@"connect": self, @"data": data};
+    [[NSNotificationCenter defaultCenter] postNotificationName:receiveStringNotification object:self userInfo:dic];
+}
+
 
 @end

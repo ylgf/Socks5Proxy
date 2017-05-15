@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "GCDAsyncSocket.h"
+#import "SPSocketUtil.h"
 
 @interface ViewController()<GCDAsyncSocketDelegate>
 
@@ -49,16 +50,21 @@
         
         [_clientSocket readDataWithTimeout:-1 tag:0];
     }
-    
-    
-    
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+    
     NSLog(@"%@", data);
     NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     
-    NSLog(@"%@", string);
+    
+    NSString *response = @"helloworld";
+    [sock writeData:[response dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+}
+
+- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
+    NSLog(@"write %@", sock);
+    NSLog(@"write:tag %ld", tag);
 }
 
 

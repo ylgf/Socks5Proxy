@@ -60,6 +60,12 @@
     
 }
 
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+    NSLog(@"socketURL: %@ socketPort: %hu data:%@", sock.connectedHost, sock.connectedPort, data);
+    NSString *response = @"helloworld";
+    [sock writeData:[response dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
+}
+
 
 
 @end

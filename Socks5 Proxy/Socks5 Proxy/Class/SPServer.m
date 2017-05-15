@@ -9,6 +9,7 @@
 #import "SPServer.h"
 #import "SPConnect.h"
 #import "GCDAsyncSocket.h"
+#import "SPSocketUtil.h"
 
 @interface SPServer()<GCDAsyncSocketDelegate>
 
@@ -35,9 +36,14 @@
         _encryptionType = type;
         
         _localSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("zkhCreator.proxy.queue.local", 0)];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:receiveStringNotification object:nil];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)start {
@@ -70,6 +76,18 @@
     SPConnect *conn = [[SPConnect alloc] initWithSocket:_localSocket remoteConfig:config];
     [_connects addObject:conn];
     [conn startConnectWithData:data];
+}
+
+- (void)receiveNotification:(NSNotification *) notification {
+    if (notification.name == receiveStringNotification) {
+        NSDictionary *userInfo = notification.userInfo;
+        SPConnect *conn = [userInfo objectForKey:@"connect"];
+        NSData *data = [userInfo objectForKey:@"data"];
+        NSLog(@"data: %@", data);
+        
+        [conn disconnect];
+        [_connects removeObject:conn];
+    }
 }
 
 @end

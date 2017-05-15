@@ -36,6 +36,7 @@
 		27ADA2601EC9243A0064E111 /* SPProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPProxyServer.m; path = class/SPProxyServer.m; sourceTree = "<group>"; };
 		27ADA2621EC9246E0064E111 /* SPProxyConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPProxyConnect.h; path = class/SPProxyConnect.h; sourceTree = "<group>"; };
 		27ADA2631EC9246E0064E111 /* SPProxyConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPProxyConnect.m; path = class/SPProxyConnect.m; sourceTree = "<group>"; };
+		27ADA2651EC94BEF0064E111 /* SPSocketUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SPSocketUtil.h; path = class/SPSocketUtil.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +109,7 @@
 				27ADA2601EC9243A0064E111 /* SPProxyServer.m */,
 				27ADA2621EC9246E0064E111 /* SPProxyConnect.h */,
 				27ADA2631EC9246E0064E111 /* SPProxyConnect.m */,
+				27ADA2651EC94BEF0064E111 /* SPSocketUtil.h */,
 			);
 			name = class;
 			sourceTree = "<group>";
@@ -341,6 +343,7 @@
 				27ADA2551EC88C440064E111 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

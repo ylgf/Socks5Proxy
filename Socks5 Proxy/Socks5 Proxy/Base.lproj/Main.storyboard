@@ -244,7 +244,6 @@
                         <outlet property="PortLabel" destination="Pjg-Ca-iu0" id="1Zt-k3-K6G"/>
                         <outlet property="StartButton" destination="7Pr-vs-4ru" id="Wei-wT-rQo"/>
                         <outlet property="StopButton" destination="mwS-jq-fqs" id="Ykn-Ai-4sC"/>
-                        <outlet property="encryptComboBox" destination="Fcm-4Z-Gis" id="JD5-7C-THa"/>
                         <outlet property="hostLabel" destination="kfy-de-ua4" id="V8Y-yr-K2h"/>
                         <outlet property="methodTextField" destination="Fcm-4Z-Gis" id="4TY-eC-0gg"/>
                         <outlet property="returnTF" destination="hqj-Og-Oen" id="Aga-aE-ype"/>

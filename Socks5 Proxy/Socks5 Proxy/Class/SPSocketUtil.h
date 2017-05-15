@@ -1,5 +1,5 @@
 //
-//  SPSocketUtil.m
+//  SPSocketUtil.h
 //  Socks5 Proxy
 //
 //  Created by zkhCreator on 14/05/2017.
@@ -7,6 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+
+static NSString * const receiveStringNotification = @"com.zkhCreator.receiveData.NotificationCenter";
+
+// 判断当前请求状态
+typedef NS_ENUM(NSInteger, SPConnectStatus) {
+    SPCheckSOCKSVersionStatus = 0,
+    SPCheckAuthStatus = 1,
+    SPSendMessageStatus = 2,
+};
+
 
 /* +----+----------+----------+
  |VER | NMETHODS | METHODS  |
