@@ -1,0 +1,348 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		27ADA2441EC88C440064E111 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2431EC88C440064E111 /* AppDelegate.m */; };
+		27ADA2471EC88C440064E111 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2461EC88C440064E111 /* main.m */; };
+		27ADA24A1EC88C440064E111 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2491EC88C440064E111 /* ViewController.m */; };
+		27ADA24C1EC88C440064E111 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 27ADA24B1EC88C440064E111 /* Assets.xcassets */; };
+		27ADA24F1EC88C440064E111 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 27ADA24D1EC88C440064E111 /* Main.storyboard */; };
+		27ADA25B1EC88D500064E111 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2581EC88D500064E111 /* GCDAsyncSocket.m */; };
+		27ADA25C1EC88D500064E111 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA25A1EC88D500064E111 /* GCDAsyncUdpSocket.m */; };
+		27ADA2611EC9243A0064E111 /* SPProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2601EC9243A0064E111 /* SPProxyServer.m */; };
+		27ADA2641EC9246E0064E111 /* SPProxyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2631EC9246E0064E111 /* SPProxyConnect.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		27ADA23F1EC88C440064E111 /* Socks5ProxyServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socks5ProxyServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27ADA2421EC88C440064E111 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		27ADA2431EC88C440064E111 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		27ADA2461EC88C440064E111 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		27ADA2481EC88C440064E111 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		27ADA2491EC88C440064E111 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		27ADA24B1EC88C440064E111 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		27ADA24E1EC88C440064E111 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		27ADA2501EC88C440064E111 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		27ADA2571EC88D500064E111 /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncSocket.h; path = CocoaAsyncSocket/GCDAsyncSocket.h; sourceTree = "<group>"; };
+		27ADA2581EC88D500064E111 /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncSocket.m; path = CocoaAsyncSocket/GCDAsyncSocket.m; sourceTree = "<group>"; };
+		27ADA2591EC88D500064E111 /* GCDAsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCDAsyncUdpSocket.h; path = CocoaAsyncSocket/GCDAsyncUdpSocket.h; sourceTree = "<group>"; };
+		27ADA25A1EC88D500064E111 /* GCDAsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCDAsyncUdpSocket.m; path = CocoaAsyncSocket/GCDAsyncUdpSocket.m; sourceTree = "<group>"; };
+		27ADA25F1EC9243A0064E111 /* SPProxyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPProxyServer.h; path = class/SPProxyServer.h; sourceTree = "<group>"; };
+		27ADA2601EC9243A0064E111 /* SPProxyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPProxyServer.m; path = class/SPProxyServer.m; sourceTree = "<group>"; };
+		27ADA2621EC9246E0064E111 /* SPProxyConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPProxyConnect.h; path = class/SPProxyConnect.h; sourceTree = "<group>"; };
+		27ADA2631EC9246E0064E111 /* SPProxyConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPProxyConnect.m; path = class/SPProxyConnect.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		27ADA23C1EC88C440064E111 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		27ADA2361EC88C440064E111 = {
+			isa = PBXGroup;
+			children = (
+				27ADA2411EC88C440064E111 /* Socks5ProxyServer */,
+				27ADA2401EC88C440064E111 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		27ADA2401EC88C440064E111 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				27ADA23F1EC88C440064E111 /* Socks5ProxyServer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		27ADA2411EC88C440064E111 /* Socks5ProxyServer */ = {
+			isa = PBXGroup;
+			children = (
+				27ADA25D1EC88D5D0064E111 /* class */,
+				27ADA2561EC88CFF0064E111 /* CocoaAsyncSocket */,
+				27ADA2421EC88C440064E111 /* AppDelegate.h */,
+				27ADA2431EC88C440064E111 /* AppDelegate.m */,
+				27ADA2481EC88C440064E111 /* ViewController.h */,
+				27ADA2491EC88C440064E111 /* ViewController.m */,
+				27ADA24B1EC88C440064E111 /* Assets.xcassets */,
+				27ADA24D1EC88C440064E111 /* Main.storyboard */,
+				27ADA2501EC88C440064E111 /* Info.plist */,
+				27ADA2451EC88C440064E111 /* Supporting Files */,
+			);
+			path = Socks5ProxyServer;
+			sourceTree = "<group>";
+		};
+		27ADA2451EC88C440064E111 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				27ADA2461EC88C440064E111 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		27ADA2561EC88CFF0064E111 /* CocoaAsyncSocket */ = {
+			isa = PBXGroup;
+			children = (
+				27ADA2571EC88D500064E111 /* GCDAsyncSocket.h */,
+				27ADA2581EC88D500064E111 /* GCDAsyncSocket.m */,
+				27ADA2591EC88D500064E111 /* GCDAsyncUdpSocket.h */,
+				27ADA25A1EC88D500064E111 /* GCDAsyncUdpSocket.m */,
+			);
+			name = CocoaAsyncSocket;
+			sourceTree = "<group>";
+		};
+		27ADA25D1EC88D5D0064E111 /* class */ = {
+			isa = PBXGroup;
+			children = (
+				27ADA25F1EC9243A0064E111 /* SPProxyServer.h */,
+				27ADA2601EC9243A0064E111 /* SPProxyServer.m */,
+				27ADA2621EC9246E0064E111 /* SPProxyConnect.h */,
+				27ADA2631EC9246E0064E111 /* SPProxyConnect.m */,
+			);
+			name = class;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		27ADA23E1EC88C440064E111 /* Socks5ProxyServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 27ADA2531EC88C440064E111 /* Build configuration list for PBXNativeTarget "Socks5ProxyServer" */;
+			buildPhases = (
+				27ADA23B1EC88C440064E111 /* Sources */,
+				27ADA23C1EC88C440064E111 /* Frameworks */,
+				27ADA23D1EC88C440064E111 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Socks5ProxyServer;
+			productName = Socks5ProxyServer;
+			productReference = 27ADA23F1EC88C440064E111 /* Socks5ProxyServer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		27ADA2371EC88C440064E111 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = zkhCreator;
+				TargetAttributes = {
+					27ADA23E1EC88C440064E111 = {
+						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = 8AGTSQVX42;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 27ADA23A1EC88C440064E111 /* Build configuration list for PBXProject "Socks5ProxyServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 27ADA2361EC88C440064E111;
+			productRefGroup = 27ADA2401EC88C440064E111 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				27ADA23E1EC88C440064E111 /* Socks5ProxyServer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		27ADA23D1EC88C440064E111 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27ADA24C1EC88C440064E111 /* Assets.xcassets in Resources */,
+				27ADA24F1EC88C440064E111 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		27ADA23B1EC88C440064E111 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				27ADA25B1EC88D500064E111 /* GCDAsyncSocket.m in Sources */,
+				27ADA25C1EC88D500064E111 /* GCDAsyncUdpSocket.m in Sources */,
+				27ADA24A1EC88C440064E111 /* ViewController.m in Sources */,
+				27ADA2641EC9246E0064E111 /* SPProxyConnect.m in Sources */,
+				27ADA2471EC88C440064E111 /* main.m in Sources */,
+				27ADA2611EC9243A0064E111 /* SPProxyServer.m in Sources */,
+				27ADA2441EC88C440064E111 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		27ADA24D1EC88C440064E111 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				27ADA24E1EC88C440064E111 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		27ADA2511EC88C440064E111 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		27ADA2521EC88C440064E111 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		27ADA2541EC88C440064E111 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8AGTSQVX42;
+				INFOPLIST_FILE = Socks5ProxyServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = zkhCreator.Socks5ProxyServer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		27ADA2551EC88C440064E111 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 8AGTSQVX42;
+				INFOPLIST_FILE = Socks5ProxyServer/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = zkhCreator.Socks5ProxyServer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		27ADA23A1EC88C440064E111 /* Build configuration list for PBXProject "Socks5ProxyServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27ADA2511EC88C440064E111 /* Debug */,
+				27ADA2521EC88C440064E111 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		27ADA2531EC88C440064E111 /* Build configuration list for PBXNativeTarget "Socks5ProxyServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				27ADA2541EC88C440064E111 /* Debug */,
+				27ADA2551EC88C440064E111 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 27ADA2371EC88C440064E111 /* Project object */;
+}
