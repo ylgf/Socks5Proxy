@@ -7,14 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "GCDAsyncSocket.h"
+#import "SPProxyServer.h"
 #import "SPSocketUtil.h"
 
 @interface ViewController()<GCDAsyncSocketDelegate>
-
-@property (nonatomic, strong) GCDAsyncSocket *listenSocket;
-@property (nonatomic, strong) GCDAsyncSocket *clientSocket;
-
+@property (nonatomic, strong) SPProxyServer *server;
+@property (weak) IBOutlet NSTextField *localPort;
 @end
 
 @implementation ViewController
@@ -22,51 +20,28 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _listenSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("com.zkhCreator.com.received.queue", 0)];
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:receiveStringNotification object:nil];
 }
 
 - (IBAction)startListen:(id)sender {
-    NSError *error;
-    BOOL isListen =  [_listenSocket acceptOnPort:55556 error:&error];
-    if (isListen) {
-        NSLog(@"监听成功");
-    } else {
-        NSLog(@"监听失败");
+    NSInteger port = _localPort.integerValue;
+    
+    _server = [[SPProxyServer alloc] initWithListenPort:port];
+    
+    if (!_server) {
+        NSLog(@"创建服务失败，请检查端口号");
+    }
+    
+    [_server start];
+}
+
+- (void)receiveNotification:(NSNotification *)notification {
+    if (notification.name == receiveStringNotification) {
+        NSDictionary *dic = notification.userInfo;
+        NSString *info = [dic objectForKey:@"info"];
+        SPProxyConnect *conn = [dic objectForKey:@"connect"];
+        [_receivedLabel setStringValue:[NSString stringWithFormat:@"%@ : %@", conn, info]];
     }
 }
-
-#pragma mark - delegate
-- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
-    NSLog(@"current:%@", sock);
-    
-    if (newSocket) {
-        _clientSocket = newSocket;
-        NSLog(@"保留 socket 接口成功");
-        
-        NSLog(@"%@", [NSString stringWithFormat:@"localhost:%@ localProt: %hu", newSocket.localHost, newSocket.localPort]);
-        NSLog(@"%@", [NSString stringWithFormat:@"connectHost:%@ connectPort:%hu", newSocket.connectedHost, newSocket.connectedPort]);
-        
-        [_clientSocket readDataWithTimeout:-1 tag:0];
-    }
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-    
-    NSLog(@"%@", data);
-    NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    
-    
-    NSString *response = @"helloworld";
-    [sock writeData:[response dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
-}
-
-- (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
-    NSLog(@"write %@", sock);
-    NSLog(@"write:tag %ld", tag);
-}
-
-
 
 @end

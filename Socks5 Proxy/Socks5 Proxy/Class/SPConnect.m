@@ -78,8 +78,7 @@
         
         return [data copy];
     } else if (tag == SPCheckAuthStatus) {
-        // 验证，当前不需要验证
-        return nil;
+        return [self userInfo];
     } else if (tag == SPSendMessageStatus) {
         // 组装请求包
         NSMutableData *data = [NSMutableData data];
@@ -117,7 +116,6 @@
         whole_byte = strtol(byte_chars, NULL, 16);
         [data appendBytes:&whole_byte length:1];
     }
-    NSLog(@"%@", data);
     return data;
 }
 
@@ -144,10 +142,15 @@
     if (sock == _remoteSocket) {
         switch (tag) {
             case SPCheckSOCKSVersionStatus:
-                [sock writeData:[self makeUpSendData:SPSendMessageStatus] withTimeout:-1 tag:SPCheckAuthStatus];
+                [sock writeData:[self makeUpSendData:SPCheckAuthStatus] withTimeout:-1 tag:SPCheckAuthStatus];
                 break;
             case SPCheckAuthStatus:
-                [sock writeData:[self makeUpSendData:SPSendMessageStatus] withTimeout:-1 tag:SPSendMessageStatus];
+                if ([self checkAfterAuth:data]) {
+                    [sock writeData:[self makeUpSendData:SPSendMessageStatus] withTimeout:-1 tag:SPSendMessageStatus];
+                } else {
+                    NSLog(@"验证不通过，请检查用户名密码");
+                    [sock disconnect];
+                }
                 break;
             case SPSendMessageStatus:
                 [self afterReceiveData:data];
@@ -156,9 +159,27 @@
     }
 }
 
+- (NSData *)userInfo {
+    NSString *userName = @"admin";
+    NSString *password = @"admin888";
+    
+    NSDictionary *dic = @{@"username" : userName, @"password" : password};
+    NSError *err;
+    return [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&err];
+}
+
 - (void)afterReceiveData:(NSData *)data {
     NSDictionary *dic = @{@"connect": self, @"data": data};
     [[NSNotificationCenter defaultCenter] postNotificationName:receiveStringNotification object:self userInfo:dic];
+    [self disconnect];
+}
+
+- (BOOL)checkAfterAuth:(NSData *)data {
+    if ([data isEqualToData:[self dataFromHexString:@"502"]]) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 
