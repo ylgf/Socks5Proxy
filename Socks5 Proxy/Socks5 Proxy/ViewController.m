@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "SPServer.h"
+#import "SPSocketUtil.h"
 
 @interface ViewController()
 
@@ -33,9 +34,9 @@
         [_hostLabel setStringValue: host];
     }
     
-    NSInteger hostPort = [userDefault integerForKey:@"Socks5ProxyLocalHostPort"];
+    NSString *hostPort = [userDefault stringForKey:@"Socks5ProxyLocalHostPort"];
     if (hostPort) {
-        [_PortLabel setIntegerValue:hostPort];
+        [_PortLabel setStringValue:hostPort];
     }
 }
 
@@ -54,21 +55,23 @@
     [_sendTF setStringValue:@""];
     [_returnTF setStringValue:@""];
 
+    
+    [[NSUserDefaults standardUserDefaults] setValue:_PortLabel.stringValue forKey:@"Socks5ProxyLocalHostPort"];
+    [[NSUserDefaults standardUserDefaults] setValue:_hostLabel.stringValue forKey:@"Socks5ProxyLocalHost"];
+    
     [_server start];
 }
 
 - (IBAction)stop:(id)sender {
+    DDLogVerbose(@"Server Stop");
     [_server stop];
 }
 
 - (IBAction)sendString:(id)sender {
-    
+    DDLogVerbose(@"Server Send Message");
     if (!_server) {
         [_returnTF setStringValue:@"请先点击开始"];
     }
-    
-    [[NSUserDefaults standardUserDefaults] setInteger:_PortLabel.integerValue forKey:@"Socks5ProxyLocalHostPort"];
-    [[NSUserDefaults standardUserDefaults] setValue:_hostLabel.stringValue forKey:@"Socks5ProxyLocalHost"];
     
     [_server sendStringToRemote:_sendTF.stringValue];
 }

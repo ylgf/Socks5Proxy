@@ -33,6 +33,7 @@
     DDFileLogger *fileLog = [[DDFileLogger alloc] init];
     if (fileLog) {
         _logPath = fileLog.currentLogFileInfo.filePath;
+        NSLog(@"%@", _logPath);
         [DDLog addLogger:fileLog];
     }
 }
