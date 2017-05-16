@@ -383,4 +383,8 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:receiveStringNotification object:nil userInfo:dic];
 }
 
+- (BOOL)checkSocket:(GCDAsyncSocket *)socket {
+    return _inComeSocket == socket;
+}
+
 @end

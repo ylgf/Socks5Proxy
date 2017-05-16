@@ -22,6 +22,7 @@
 
 @property (nonatomic, weak) id<SPProxyConnectDelegate> delegate;
 
+- (BOOL)checkSocket:(GCDAsyncSocket *)socket;
 - (instancetype)initWithSocket:(GCDAsyncSocket*)socket listenPort:(NSInteger)listenPort;
 - (void)connect;
 - (void)stop;

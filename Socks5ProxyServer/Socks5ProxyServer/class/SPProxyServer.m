@@ -53,11 +53,27 @@
 
 #pragma mark - GCDAsyncSocketDelegate
 - (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
-    if (newSocket) {
+    
+    if (!newSocket) {
+        return ;
+    }
+    if (![self checkNewSocket:newSocket]) {
         SPProxyConnect *conn = [[SPProxyConnect alloc] initWithSocket:newSocket listenPort:(NSInteger)_listenPort];
         [_conns addObject:conn];
         [conn connect];
     }
+}
+
+- (BOOL)checkNewSocket:(GCDAsyncSocket *)socket {
+    BOOL exist = NO;
+    for (SPProxyConnect *conn in _conns) {
+        if ([conn checkSocket:socket]) {
+            exist = YES;
+            break;
+        }
+    }
+    
+    return exist;
 }
 
 @end
