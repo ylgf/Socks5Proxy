@@ -10,11 +10,14 @@
 #import "ViewController.h"
 #import "SPQCWindowController.h"
 #import <CoreImage/CoreImage.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "SPSocketUtil.h"
 
 @interface AppDelegate ()
 
 @property (nonatomic, strong) SPQCWindowController *qcWC;
 @property (nonatomic, strong) ViewController *vc;
+@property (nonatomic, copy) NSString *logPath;
 
 @end
 
@@ -22,7 +25,16 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
-    
+    // Xcode log
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    // Mac OS X log
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    // write to File
+    DDFileLogger *fileLog = [[DDFileLogger alloc] init];
+    if (fileLog) {
+        _logPath = fileLog.currentLogFileInfo.filePath;
+        [DDLog addLogger:fileLog];
+    }
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
@@ -36,9 +48,11 @@
 - (IBAction)showQCCode:(id)sender {
     NSString *localhost = self.vc.hostLabel.stringValue;
     NSString *localPort = self.vc.PortLabel.stringValue;
-    
+
+    DDLogVerbose(@"User click show QC Code");
     if (localhost.length == 0 || localPort.length == 0) {
         
+        DDLogVerbose(@"User did write host && password when click QC Code");
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText:@"请填写连接地址和端口"];
         [alert addButtonWithTitle:@"好的"];
@@ -54,14 +68,25 @@
         [_qcWC showWindow:self];
         [NSApp activateIgnoringOtherApps:true];
         [_qcWC.window makeKeyAndOrderFront:nil];
+        DDLogVerbose(@"show QC windowController");
     } else {
         NSLog(@"qc Code生成失败");
+        DDLogWarn(@"init QC WindowController Error");
     }
 }
 
 - (IBAction)scanQCCode:(id)sender {
     [self ScanQRCodeOnScreen];
 }
+
+- (IBAction)showLogs:(id)sender {
+    [[NSWorkspace sharedWorkspace] URLForApplicationWithBundleIdentifier:@"com.apple.Console"];
+    
+    NSWorkspace *ws = [NSWorkspace sharedWorkspace];
+    NSURL *url = [ws URLForApplicationWithBundleIdentifier:@"com.apple.Console"];
+    [ws launchApplicationAtURL:url options:NSWorkspaceLaunchDefault configuration:@{NSWorkspaceLaunchConfigurationArguments: _logPath} error:nil];
+}
+
 
 - (ViewController *)vc {
     if (!_vc) {
@@ -125,7 +150,6 @@
             // 解析内容
             NSString *decodeString = [[NSString alloc] initWithData:[[NSData alloc] initWithBase64EncodedString:feature.messageString options:0] encoding:NSUTF8StringEncoding];
             
-//            NSString *ecodeing = [feature.messageString decode]
             if ( [decodeString hasPrefix:@"sp://"] )
             {
                 NSString *contentString = [decodeString substringFromIndex:5];

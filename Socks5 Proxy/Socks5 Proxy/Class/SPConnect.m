@@ -9,6 +9,7 @@
 #import "SPConnect.h"
 #import "SPSocketUtil.h"
 #import "NSData+SPAES.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface SPRemoteConfig()
 
@@ -54,16 +55,17 @@
 }
 
 - (void)startConnectWithData:(NSData *)data {
+    DDLogVerbose(@"start connect");
     // 储存数据准备连接到远端的服务端。
     _currentData = data;
     NSError *error;
     BOOL isConnect = [_remoteSocket connectToHost:_remoteConfig.remoteAddress onPort:_remoteConfig.remotePort error:&error];
     if (isConnect) {
-        NSLog(@"连接成功");
+        DDLogVerbose(@"connect success");
         NSData *requestData = [self makeUpSendData:SPCheckSOCKSVersionStatus];
         [_remoteSocket writeData:requestData withTimeout:-1 tag:SPCheckSOCKSVersionStatus];
     } else {
-        NSLog(@"连接失败");
+        DDLogVerbose(@"connect failed");
     }
 }
 
@@ -147,8 +149,10 @@
                 break;
             case SPCheckAuthStatus:
                 if ([self checkAfterAuth:data]) {
+                    DDLogVerbose(@"check userName && password Success");
                     [sock writeData:[self makeUpSendData:SPSendMessageStatus] withTimeout:-1 tag:SPSendMessageStatus];
                 } else {
+                    DDLogVerbose(@"check userName && password Error");
                     NSLog(@"验证不通过，请检查用户名密码");
                     [sock disconnect];
                 }

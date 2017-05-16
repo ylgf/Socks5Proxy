@@ -8,6 +8,8 @@
 
 #import "SPQCWindowController.h"
 #import <CoreImage/CoreImage.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+#import "SPSocketUtil.h"
 
 @interface SPQCWindowController ()
 @property (weak) IBOutlet NSImageView *QCCodeImageView;
@@ -76,7 +78,7 @@
 
 - (IBAction)copyQCImage:(id)sender {
     NSPasteboard *pasteboard = [NSPasteboard generalPasteboard];
-    
+    DDLogVerbose(@"user click paste QCCode");
     // 删除已有的内容，防止干扰
     [pasteboard clearContents];
     [pasteboard writeObjects:@[_QCCodeImageView.image]];

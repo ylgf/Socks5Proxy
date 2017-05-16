@@ -51,9 +51,9 @@
     BOOL isListenToLocalPort = [_localSocket acceptOnPort:_port error:&error];
     
     if (isListenToLocalPort) {
-        NSLog(@"本地接口监听成功");
+        DDLogVerbose(@"本地接口监听成功");
     } else {
-        NSLog(@"本地接口监听失败");
+        DDLogVerbose(@"本地接口监听成功");
     }
     
 }

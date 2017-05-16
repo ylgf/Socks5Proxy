@@ -7,8 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 static NSString * const receiveStringNotification = @"com.zkhCreator.receiveData.NotificationCenter";
+
+#if DEBUG
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+#else
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+#endif
 
 // 判断当前请求状态
 typedef NS_ENUM(NSInteger, SPConnectStatus) {

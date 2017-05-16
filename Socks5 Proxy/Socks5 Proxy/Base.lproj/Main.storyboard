@@ -84,6 +84,11 @@
                                                 <action selector="FeedBack:" target="Voe-Tx-rLC" id="lww-qm-NJL"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Show Logs" keyEquivalent="?" id="blw-pg-ft5">
+                                            <connections>
+                                                <action selector="showLogs:" target="Voe-Tx-rLC" id="EGy-Os-IWn"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
