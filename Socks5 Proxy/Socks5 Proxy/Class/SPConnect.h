@@ -22,7 +22,6 @@
 
 @interface SPConnect : NSObject
 
-@property (nonatomic, strong) GCDAsyncSocket *remoteSocket;
 
 - (instancetype)initWithSocket:(GCDAsyncSocket*) socket remoteConfig:(SPRemoteConfig *)config;
 

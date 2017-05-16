@@ -55,63 +55,59 @@
 
 #pragma mark - CocoaAsyncSocketDelegate
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
-    if (sock == _inComeSocket) {
-        switch (tag) {
-            case SOCKS_OPEN:
-                [self socksOpen:data socket:sock];
-                break;
-            case SOCKS_CONNECT_AUTH_INIT:
-                [self socksConnectAuthInit:data socket:sock];
-                break;
-            case SOCKS_CONNECT_AUTH_USERNAME:
-                [self socksConnectAuthUserName:data socket:sock];
-                break;
-            case SOCKS_CONNECT_AUTH_PASSWORD:
-                [self socksConnectAuthPassword:data socket:sock];
-                break;
-            case SOCKS_CONNECT_INIT:
-                [self socksConnectInit:data socket:sock];
-                break;
-            case SOCKS_CONNECT_IPv4:
-                [self socksConnectIPV4:data socket:sock];
-                break;
-            case SOCKS_CONNECT_IPv6:
-                [self socksConnectIPV6:data socket:sock];
-                break;
-            case SOCKS_CONNECT_DOMAIN_LENGTH:
-                [self socksConnectDomainLength:data socket:sock];
-                break;
-            case SOCKS_CONNECT_DOMAIN:
-                [self socksConnectDomain:data socket:sock];
-            case SOCKS_CONNECT_PORT:
-                [self socksConnectPort:data socket:sock];
-                break;
-            case SOCKS_INCOMING_READ:
-            case SOCKS_OUTGOING_READ:
-                [self socksTransformData:data socket:sock];
-                break;
-            default:
-                break;
-        }
+    switch (tag) {
+        case SOCKS_OPEN:
+            [self socksOpen:data socket:sock];
+            break;
+        case SOCKS_CONNECT_AUTH_INIT:
+            [self socksConnectAuthInit:data socket:sock];
+            break;
+        case SOCKS_CONNECT_AUTH_USERNAME:
+            [self socksConnectAuthUserName:data socket:sock];
+            break;
+        case SOCKS_CONNECT_AUTH_PASSWORD:
+            [self socksConnectAuthPassword:data socket:sock];
+            break;
+        case SOCKS_CONNECT_INIT:
+            [self socksConnectInit:data socket:sock];
+            break;
+        case SOCKS_CONNECT_IPv4:
+            [self socksConnectIPV4:data socket:sock];
+            break;
+        case SOCKS_CONNECT_IPv6:
+            [self socksConnectIPV6:data socket:sock];
+            break;
+        case SOCKS_CONNECT_DOMAIN_LENGTH:
+            [self socksConnectDomainLength:data socket:sock];
+            break;
+        case SOCKS_CONNECT_DOMAIN:
+            [self socksConnectDomain:data socket:sock];
+        case SOCKS_CONNECT_PORT:
+            [self socksConnectPort:data socket:sock];
+            break;
+        case SOCKS_INCOMING_READ:
+        case SOCKS_OUTGOING_READ:
+            [self socksTransformData:data socket:sock];
+            break;
+        default:
+            break;
     }
 }
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
-    if (sock == _inComeSocket) {
-        switch (tag) {
-            case SOCKS_OPEN:
-                [self socketResponseSocketONSocket:sock];
-                break;
-            case SOCKS_CONNECT_INIT:
-                [self socketResponseSocketAuth:sock];
-                break;
-            case SOCKS_INCOMING_READ:
-            case SOCKS_OUTGOING_READ:
-                [self socketResponseSocket:sock];
-                break;
-            default:
-                break;
-        }
+    switch (tag) {
+        case SOCKS_OPEN:
+            [self socketResponseSocketONSocket:sock];
+            break;
+        case SOCKS_CONNECT_INIT:
+            [self socketResponseSocketAuth:sock];
+            break;
+        case SOCKS_INCOMING_READ:
+        case SOCKS_OUTGOING_READ:
+            [self socketResponseSocket:sock];
+            break;
+        default:
+            break;
     }
 }
 

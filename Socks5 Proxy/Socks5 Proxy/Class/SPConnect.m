@@ -10,6 +10,7 @@
 #import "SPSocketUtil.h"
 #import "NSData+SPAES.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import "NSString+convertData.h"
 
 @interface SPRemoteConfig()
 
@@ -33,7 +34,8 @@
 
 @interface SPConnect()<GCDAsyncSocketDelegate>
 
-@property (nonatomic, strong) GCDAsyncSocket *clientSocket;
+@property (nonatomic, strong) GCDAsyncSocket *inComeSocket;
+@property (nonatomic, strong) GCDAsyncSocket *outGoSocket;
 @property (nonatomic, strong) SPRemoteConfig *remoteConfig;
 @property (nonatomic, copy) NSData *currentData;
 
@@ -43,15 +45,15 @@
 
 - (instancetype)initWithSocket:(GCDAsyncSocket*) socket remoteConfig:(SPRemoteConfig *)config {
     if (self = [super init]) {
-        _clientSocket = socket;
-        _remoteSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("com.zkhCreator.socket.queue", 0)];
+        _inComeSocket = socket;
+        _outGoSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("com.zkhCreator.socket.queue", 0)];
         _remoteConfig = config;
     }
     return self;
 }
 
 - (void)disconnect {
-    [_remoteSocket disconnectAfterReadingAndWriting];
+    [_outGoSocket disconnectAfterReadingAndWriting];
 }
 
 - (void)startConnectWithData:(NSData *)data {
@@ -59,133 +61,114 @@
     // 储存数据准备连接到远端的服务端。
     _currentData = data;
     NSError *error;
-    BOOL isConnect = [_remoteSocket connectToHost:_remoteConfig.remoteAddress onPort:_remoteConfig.remotePort error:&error];
+    BOOL isConnect = [_outGoSocket connectToHost:_remoteConfig.remoteAddress onPort:_remoteConfig.remotePort error:&error];
     if (isConnect) {
         DDLogVerbose(@"connect success");
-        NSData *requestData = [self makeUpSendData:SPCheckSOCKSVersionStatus];
-        [_remoteSocket writeData:requestData withTimeout:-1 tag:SPCheckSOCKSVersionStatus];
+        [self socketOpenSOCKS5];
     } else {
         DDLogVerbose(@"connect failed");
     }
 }
 
-- (NSData *)makeUpSendData:(SPConnectStatus)tag {
-    
-    if (tag == SPCheckSOCKSVersionStatus) {
-        NSMutableData *data = [NSMutableData data];
-        // 协议请求包。
-        unsigned char whole_byte;
-        char byte_chars[3] = {'\5', '\1', '\0'};
-        whole_byte = strtol(byte_chars, NULL, 16);
-        [data appendBytes:&whole_byte length:1];
-        
-        return [data copy];
-    } else if (tag == SPCheckAuthStatus) {
-        return [self userInfo];
-    } else if (tag == SPSendMessageStatus) {
-        // 组装请求包
-        NSMutableData *data = [NSMutableData data];
-        NSString *string = [NSString stringWithFormat:@"5101"];
-        [data appendData:[self dataFromHexString:string]];
-        
-        // URL
-        NSString *url = _remoteConfig.remoteAddress;
-        [data appendData:[url dataUsingEncoding:NSUTF8StringEncoding]];
-        // Prot
-        [data appendData:[self dataFromHexString:[NSString stringWithFormat:@"%ld", _remoteConfig.remotePort]]];
-        
-        [data appendData:_currentData];
-        
-        return [[data copy] aes256_encrypt:@"helloworld"];
+#pragma mark - GCDAsyncSocketDelegate
+- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+    switch (tag) {
+        case SOCKS_OPEN:
+            [self socket:sock readResponseSocketOn:data];
+            break;
+            
+        default:
+            break;
     }
-    
-    return nil;
 }
 
-- (NSData *)dataFromHexString:(NSString *)string
-{
-    string = [string lowercaseString];
-    NSMutableData *data= [NSMutableData new];
-    unsigned char whole_byte;
-    char byte_chars[3] = {'\0','\0','\0'};
-    int i = 0;
-    NSUInteger length = string.length;
-    while (i < length - 1) {
-        char c = [string characterAtIndex:i++];
-        if (c < '0' || (c > '9' && c < 'a') || c > 'f')
-            continue;
-        byte_chars[0] = c;
-        byte_chars[1] = [string characterAtIndex:i++];
-        whole_byte = strtol(byte_chars, NULL, 16);
-        [data appendBytes:&whole_byte length:1];
-    }
-    return data;
-}
-
-#pragma mark - delegate
 
 - (void)socket:(GCDAsyncSocket *)sock didWriteDataWithTag:(long)tag {
-    if (sock == _remoteSocket) {
-        switch (tag) {
-            case SPCheckSOCKSVersionStatus:
-                [sock readDataWithTimeout:-1 tag:SPCheckSOCKSVersionStatus];
-                break;
-            case SPCheckAuthStatus:
-                [sock readDataWithTimeout:-1 tag:SPCheckAuthStatus];
-                break;
-            case SPSendMessageStatus:
-                [sock readDataWithTimeout:-1 tag:SPSendMessageStatus];
-                break;
+    switch (tag) {
+        case SOCKS_OPEN:
+            [self socketWithResponseSocketOn:sock];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/*
+ +----+----------+----------+
+ |VER | NMETHODS | METHODS  |
+ +----+----------+----------+
+ | 1  |    1     | 1 to 255 |
+ +----+----------+----------+ */
+// 开始 socket 请求
+- (void)socketOpenSOCKS5 {
+    NSUInteger requestLength = 3;
+    uint8_t *checkVersionData = malloc(requestLength * sizeof(uint8_t));
+    // 组装数据
+    checkVersionData[0] = 5;    // SOCKS VERSION
+    checkVersionData[1] = 1;    // Method Length
+    checkVersionData[2] = 0x02; // username Check
+    
+    NSData *requestData = [NSData dataWithBytesNoCopy:checkVersionData length:requestLength];
+    DDLogVerbose(@"start connect: Check SOCKS Version");
+    [_outGoSocket writeData:requestData withTimeout:-1 tag:SOCKS_OPEN];
+}
+
+#pragma mark - After Read Method
+
+//      +-----+--------+
+// NAME | VER | METHOD |
+//      +-----+--------+
+// SIZE |  1  |   1    |
+//      +-----+--------+
+- (void)socket:(GCDAsyncSocket *)socket readResponseSocketOn:(NSData *)data {
+    if (data.length >= 2) {
+        uint8_t *bytes = (uint8_t *)data.bytes;
+        uint8_t methodByte = bytes[1];  // 检验对应的验证格式 0x00 为 不需要验证， 0x02 为进行身份验证。
+        
+        DDLogVerbose(@"start connect: Check SOCKS Version Successed.Outgo URL: %@, PORT:%d", socket.connectedUrl, socket.connectedPort);
+        
+        if (methodByte == 0x02) {
+            DDLogVerbose(@"start connect: Start Check Auth");
+            [_outGoSocket writeData:[self authData:@"admin" password:@"admin888"]  withTimeout:-1 tag:SOCKS_CONNECT_AUTH_INIT];
+        } else {
+            
         }
     }
 }
 
-- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+- (void)socket:(GCDAsyncSocket *)socket writeConnectData:(NSData *)data {
     
-    if (sock == _remoteSocket) {
-        switch (tag) {
-            case SPCheckSOCKSVersionStatus:
-                [sock writeData:[self makeUpSendData:SPCheckAuthStatus] withTimeout:-1 tag:SPCheckAuthStatus];
-                break;
-            case SPCheckAuthStatus:
-                if ([self checkAfterAuth:data]) {
-                    DDLogVerbose(@"check userName && password Success");
-                    [sock writeData:[self makeUpSendData:SPSendMessageStatus] withTimeout:-1 tag:SPSendMessageStatus];
-                } else {
-                    DDLogVerbose(@"check userName && password Error");
-                    NSLog(@"验证不通过，请检查用户名密码");
-                    [sock disconnect];
-                }
-                break;
-            case SPSendMessageStatus:
-                [self afterReceiveData:data];
-                break;
-        }
-    }
 }
 
-- (NSData *)userInfo {
-    NSString *userName = @"admin";
-    NSString *password = @"admin888";
+
+#pragma mark - After Write Method
+// 发送 协商协议类型之后等待获得数据
+- (void)socketWithResponseSocketOn:(GCDAsyncSocket *)socket {
+    [socket readDataWithTimeout:-1 tag:SOCKS_OPEN];
+}
+
+#pragma mark - MakeUp Data 
+- (NSData *)authData:(NSString *)username password:(NSString *)password {
+    NSMutableData *data = [NSMutableData data];
+    uint8_t version = 0x05; // 版本号
     
-    NSDictionary *dic = @{@"username" : userName, @"password" : password};
-    NSError *err;
-    return [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&err];
+    NSData *usernameData = [username convertData];
+    uint8_t usernameLength = usernameData.length;
+    
+    NSData *passwordData = [password convertData];
+    uint8_t passwordLength = passwordData.length;
+    
+    
+    [data appendBytes:&version length:1];    //增加版本号
+    
+    [data appendBytes:&usernameLength length:1]; //用户名长度
+    [data appendData:usernameData];
+    
+    [data appendBytes:&passwordLength length:1]; //密码长度
+    [data appendData:passwordData];
+    
+    return data;
 }
-
-- (void)afterReceiveData:(NSData *)data {
-    NSDictionary *dic = @{@"connect": self, @"data": data};
-    [[NSNotificationCenter defaultCenter] postNotificationName:receiveStringNotification object:self userInfo:dic];
-    [self disconnect];
-}
-
-- (BOOL)checkAfterAuth:(NSData *)data {
-    if ([data isEqualToData:[self dataFromHexString:@"502"]]) {
-        return YES;
-    } else {
-        return NO;
-    }
-}
-
 
 @end

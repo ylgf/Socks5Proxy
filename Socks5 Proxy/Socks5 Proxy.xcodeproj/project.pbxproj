@@ -22,6 +22,7 @@
 		27ADA28B1EC9F2800064E111 /* SPQCWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27ADA2891EC9F2800064E111 /* SPQCWindowController.xib */; };
 		27ADA28F1ECA9DD90064E111 /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27ADA28E1ECA9DD90064E111 /* CocoaLumberjack.framework */; };
 		27ADA2901ECA9DD90064E111 /* CocoaLumberjack.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 27ADA28E1ECA9DD90064E111 /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		27ADA29C1ECB4C720064E111 /* NSString+convertData.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA29B1ECB4C720064E111 /* NSString+convertData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +64,8 @@
 		27ADA2881EC9F2800064E111 /* SPQCWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQCWindowController.m; sourceTree = "<group>"; };
 		27ADA2891EC9F2800064E111 /* SPQCWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPQCWindowController.xib; sourceTree = "<group>"; };
 		27ADA28E1ECA9DD90064E111 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = Carthage/Build/Mac/CocoaLumberjack.framework; sourceTree = "<group>"; };
+		27ADA29A1ECB4C720064E111 /* NSString+convertData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+convertData.h"; path = "Class/NSString+convertData.h"; sourceTree = "<group>"; };
+		27ADA29B1ECB4C720064E111 /* NSString+convertData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+convertData.m"; path = "Class/NSString+convertData.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +144,8 @@
 				27596EE01EC8683200CA64A5 /* SPServer.h */,
 				27596EE11EC8683200CA64A5 /* SPServer.m */,
 				27596EE41EC8827200CA64A5 /* SPSocketUtil.h */,
+				27ADA29A1ECB4C720064E111 /* NSString+convertData.h */,
+				27ADA29B1ECB4C720064E111 /* NSString+convertData.m */,
 			);
 			name = class;
 			sourceTree = "<group>";
@@ -237,6 +242,7 @@
 				27596EE51EC8827200CA64A5 /* SPSocketUtil.h in Sources */,
 				27596EE21EC8683200CA64A5 /* SPServer.m in Sources */,
 				27596EDF1EC8682400CA64A5 /* SPConnect.m in Sources */,
+				27ADA29C1ECB4C720064E111 /* NSString+convertData.m in Sources */,
 				27596EC61EC866DE00CA64A5 /* main.m in Sources */,
 				27596EC31EC866DE00CA64A5 /* AppDelegate.m in Sources */,
 			);

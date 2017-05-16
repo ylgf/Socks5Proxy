@@ -17,23 +17,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
 
-// 判断当前请求状态
-typedef NS_ENUM(NSInteger, SPConnectStatus) {
-    SPCheckSOCKSVersionStatus = 0,
-    SPCheckAuthStatus = 1,
-    SPSendMessageStatus = 2,
-};
-
-
-/* +----+----------+----------+
- |VER | NMETHODS | METHODS  |
- +----+----------+----------+
- | 1  |    1     | 1 to 255 |
- +----+----------+----------+ */
-
-#define SPSOCKS4Version @"4";
-#define SPSOCKS5Version @"5";
-
 
 #define SOCKS_OPEN             10100
 #define SOCKS_CONNECT_AUTH_INIT     10101
@@ -51,3 +34,9 @@ typedef NS_ENUM(NSInteger, SPConnectStatus) {
 #define SOCKS_INCOMING_WRITE   10401
 #define SOCKS_OUTGOING_READ    10500
 #define SOCKS_OUTGOING_WRITE   10501
+
+
+// Timeouts
+#define TIMEOUT_CONNECT       8.00
+#define TIMEOUT_READ          5.00
+#define TIMEOUT_TOTAL        80.00

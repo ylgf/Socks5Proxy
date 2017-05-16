@@ -707,7 +707,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3Q-GL-Zlt">
-                                <rect key="frame" x="217" y="234" width="87" height="16"/>
+                                <rect key="frame" x="144" y="234" width="87" height="16"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Xrm-yv-RkD">
                                     <font key="font" metaFont="miniSystem"/>
@@ -716,7 +716,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yHZ-vk-bee">
-                                <rect key="frame" x="174" y="237" width="37" height="11"/>
+                                <rect key="frame" x="101" y="237" width="37" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Port：" id="JWB-yU-344">
                                     <font key="font" metaFont="miniSystem"/>
@@ -724,9 +724,18 @@
                                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ElM-WM-8cD">
+                                <rect key="frame" x="249" y="231" width="69" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="encrypt" bezelStyle="regularSquare" imagePosition="left" controlSize="mini" state="on" inset="2" id="Fvr-cL-Ja3">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="miniSystem"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="checkBox" destination="ElM-WM-8cD" id="vNy-HO-LFF"/>
                         <outlet property="localPort" destination="y3Q-GL-Zlt" id="We0-1s-nMa"/>
                         <outlet property="receivedLabel" destination="AdA-99-H1R" id="GeL-Jm-U82"/>
                     </connections>
