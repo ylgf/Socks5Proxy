@@ -24,7 +24,7 @@
 @implementation SPServer
 
 + (NSArray *)encrpyTypes {
-    return @[@"aes_256_cfb", @"aes_256_ctr"];
+    return @[@"aes_256_cfb", @"empty"];
 }
 
 - (instancetype)initWithHost:(NSString *)address port:(NSInteger)port encryptionType:(NSString *)type {

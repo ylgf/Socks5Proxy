@@ -9,9 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "GCDAsyncSocket.h"
 
+@protocol SPProxyConnectDelegate <NSObject>
+
+- (void)socket:(GCDAsyncSocket *)socket didWriteDataLength:(NSUInteger)datalength;
+- (void)socket:(GCDAsyncSocket *)socket didReadDataLength:(NSUInteger)datalength;
+
+@end
 
 @class GCDAsyncSocket;
+
 @interface SPProxyConnect : NSObject<GCDAsyncSocketDelegate>
+
+@property (nonatomic, weak) id<SPProxyConnectDelegate> delegate;
 
 - (instancetype)initWithSocket:(GCDAsyncSocket*)socket listenPort:(NSInteger)listenPort;
 - (void)connect;
