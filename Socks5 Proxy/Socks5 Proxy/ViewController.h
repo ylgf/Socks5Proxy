@@ -15,6 +15,8 @@
 @property (weak) IBOutlet NSComboBox *methodTextField;
 @property (weak) IBOutlet NSTextField *sendTF;
 @property (weak) IBOutlet NSTextField *returnTF;
+@property (weak) IBOutlet NSTextField *hostLabel;
+@property (weak) IBOutlet NSTextField *PortLabel;
 
 @end
 

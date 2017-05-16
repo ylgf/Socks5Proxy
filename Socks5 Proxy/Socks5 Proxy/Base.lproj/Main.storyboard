@@ -61,8 +61,16 @@
                                 <menu key="submenu" title="File" id="bib-Uj-vzu">
                                     <items>
                                         <menuItem title="Start..." keyEquivalent="b" id="9bv-io-dqd"/>
-                                        <menuItem title="Show QCCode" keyEquivalent="p" id="Bp4-jM-56a"/>
-                                        <menuItem title="Scan QCCode" keyEquivalent="o" id="cqq-Nl-7XA"/>
+                                        <menuItem title="Show QCCode" keyEquivalent="p" id="Bp4-jM-56a">
+                                            <connections>
+                                                <action selector="showQCCode:" target="Voe-Tx-rLC" id="glc-Jr-xcY"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Scan QCCode" keyEquivalent="o" id="cqq-Nl-7XA">
+                                            <connections>
+                                                <action selector="scanQCCode:" target="Voe-Tx-rLC" id="ohW-cZ-X02"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Stop" keyEquivalent="s" id="ELg-f3-GKZ"/>
                                     </items>
                                 </menu>

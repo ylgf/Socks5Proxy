@@ -17,6 +17,7 @@
 		27ADA2611EC9243A0064E111 /* SPProxyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2601EC9243A0064E111 /* SPProxyServer.m */; };
 		27ADA2641EC9246E0064E111 /* SPProxyConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2631EC9246E0064E111 /* SPProxyConnect.m */; };
 		27ADA27B1EC980250064E111 /* NSData+SPAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA27A1EC980250064E111 /* NSData+SPAES.m */; };
+		27ADA27F1EC9F1470064E111 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA27E1EC9F1470064E111 /* main.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		27ADA2651EC94BEF0064E111 /* SPSocketUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SPSocketUtil.h; path = class/SPSocketUtil.h; sourceTree = "<group>"; };
 		27ADA2791EC980250064E111 /* NSData+SPAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+SPAES.h"; path = "class/NSData+SPAES.h"; sourceTree = "<group>"; };
 		27ADA27A1EC980250064E111 /* NSData+SPAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+SPAES.m"; path = "class/NSData+SPAES.m"; sourceTree = "<group>"; };
+		27ADA27E1EC9F1470064E111 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 		27ADA2561EC88CFF0064E111 /* CocoaAsyncSocket */ = {
 			isa = PBXGroup;
 			children = (
+				27ADA27E1EC9F1470064E111 /* main.m */,
 				27ADA2571EC88D500064E111 /* GCDAsyncSocket.h */,
 				27ADA2581EC88D500064E111 /* GCDAsyncSocket.m */,
 				27ADA2591EC88D500064E111 /* GCDAsyncUdpSocket.h */,
@@ -197,6 +200,7 @@
 				27ADA2641EC9246E0064E111 /* SPProxyConnect.m in Sources */,
 				27ADA2471EC88C440064E111 /* main.m in Sources */,
 				27ADA2611EC9243A0064E111 /* SPProxyServer.m in Sources */,
+				27ADA27F1EC9F1470064E111 /* main.m in Sources */,
 				27ADA2441EC88C440064E111 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,6 +18,8 @@
 		27596EE21EC8683200CA64A5 /* SPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 27596EE11EC8683200CA64A5 /* SPServer.m */; };
 		27596EE51EC8827200CA64A5 /* SPSocketUtil.h in Sources */ = {isa = PBXBuildFile; fileRef = 27596EE41EC8827200CA64A5 /* SPSocketUtil.h */; };
 		27ADA2781EC97B480064E111 /* NSData+SPAES.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2771EC97B480064E111 /* NSData+SPAES.m */; };
+		27ADA28A1EC9F2800064E111 /* SPQCWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2881EC9F2800064E111 /* SPQCWindowController.m */; };
+		27ADA28B1EC9F2800064E111 /* SPQCWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 27ADA2891EC9F2800064E111 /* SPQCWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,9 @@
 		27596EE41EC8827200CA64A5 /* SPSocketUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSocketUtil.h; path = Class/SPSocketUtil.h; sourceTree = "<group>"; };
 		27ADA2761EC97B480064E111 /* NSData+SPAES.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSData+SPAES.h"; path = "Class/NSData+SPAES.h"; sourceTree = "<group>"; };
 		27ADA2771EC97B480064E111 /* NSData+SPAES.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSData+SPAES.m"; path = "Class/NSData+SPAES.m"; sourceTree = "<group>"; };
+		27ADA2871EC9F2800064E111 /* SPQCWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPQCWindowController.h; sourceTree = "<group>"; };
+		27ADA2881EC9F2800064E111 /* SPQCWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPQCWindowController.m; sourceTree = "<group>"; };
+		27ADA2891EC9F2800064E111 /* SPQCWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPQCWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				27596ED51EC866E400CA64A5 /* CocoaAsync */,
+				27ADA2811EC9F1C30064E111 /* QCCode */,
 				27596EDC1EC8671800CA64A5 /* class */,
 				27596EC11EC866DE00CA64A5 /* AppDelegate.h */,
 				27596EC21EC866DE00CA64A5 /* AppDelegate.m */,
@@ -118,6 +124,16 @@
 				27596EE41EC8827200CA64A5 /* SPSocketUtil.h */,
 			);
 			name = class;
+			sourceTree = "<group>";
+		};
+		27ADA2811EC9F1C30064E111 /* QCCode */ = {
+			isa = PBXGroup;
+			children = (
+				27ADA2871EC9F2800064E111 /* SPQCWindowController.h */,
+				27ADA2881EC9F2800064E111 /* SPQCWindowController.m */,
+				27ADA2891EC9F2800064E111 /* SPQCWindowController.xib */,
+			);
+			path = QCCode;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,6 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27ADA28B1EC9F2800064E111 /* SPQCWindowController.xib in Resources */,
 				27596ECB1EC866DE00CA64A5 /* Assets.xcassets in Resources */,
 				27596ECE1EC866DE00CA64A5 /* Main.storyboard in Resources */,
 			);
@@ -195,6 +212,7 @@
 				27596EDA1EC8671200CA64A5 /* GCDAsyncSocket.m in Sources */,
 				27596EDB1EC8671200CA64A5 /* GCDAsyncUdpSocket.m in Sources */,
 				27596EC91EC866DE00CA64A5 /* ViewController.m in Sources */,
+				27ADA28A1EC9F2800064E111 /* SPQCWindowController.m in Sources */,
 				27ADA2781EC97B480064E111 /* NSData+SPAES.m in Sources */,
 				27596EE51EC8827200CA64A5 /* SPSocketUtil.h in Sources */,
 				27596EE21EC8683200CA64A5 /* SPServer.m in Sources */,

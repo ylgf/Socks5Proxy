@@ -14,8 +14,6 @@
 @property (nonatomic, strong) SPServer *server;
 @property (nonatomic, copy) NSString *host;
 @property (nonatomic, assign) int port;
-@property (weak) IBOutlet NSTextField *hostLabel;
-@property (weak) IBOutlet NSTextField *PortLabel;
 
 @end
 
