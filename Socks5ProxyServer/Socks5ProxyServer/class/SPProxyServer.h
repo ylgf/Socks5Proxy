@@ -14,7 +14,7 @@
 
 
 - (instancetype)initWithListenPort:(NSInteger) port;
-
++ (NSArray *)encrpyTypes;
 - (void)start;
 
 @end

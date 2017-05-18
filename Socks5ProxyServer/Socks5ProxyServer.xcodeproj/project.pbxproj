@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271F236F1ECE141900D144B6 /* SPServerConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 271F236E1ECE141900D144B6 /* SPServerConfigManager.m */; };
 		27ADA2441EC88C440064E111 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2431EC88C440064E111 /* AppDelegate.m */; };
 		27ADA2471EC88C440064E111 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2461EC88C440064E111 /* main.m */; };
 		27ADA24A1EC88C440064E111 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27ADA2491EC88C440064E111 /* ViewController.m */; };
@@ -36,6 +37,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		271F236D1ECE141900D144B6 /* SPServerConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPServerConfigManager.h; path = class/SPServerConfigManager.h; sourceTree = "<group>"; };
+		271F236E1ECE141900D144B6 /* SPServerConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPServerConfigManager.m; path = class/SPServerConfigManager.m; sourceTree = "<group>"; };
 		27ADA23F1EC88C440064E111 /* Socks5ProxyServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Socks5ProxyServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		27ADA2421EC88C440064E111 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		27ADA2431EC88C440064E111 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				27ADA2621EC9246E0064E111 /* SPProxyConnect.h */,
 				27ADA2631EC9246E0064E111 /* SPProxyConnect.m */,
 				27ADA2651EC94BEF0064E111 /* SPSocketUtil.h */,
+				271F236D1ECE141900D144B6 /* SPServerConfigManager.h */,
+				271F236E1ECE141900D144B6 /* SPServerConfigManager.m */,
 			);
 			name = class;
 			sourceTree = "<group>";
@@ -213,6 +218,7 @@
 				27ADA25B1EC88D500064E111 /* GCDAsyncSocket.m in Sources */,
 				27ADA25C1EC88D500064E111 /* GCDAsyncUdpSocket.m in Sources */,
 				27ADA24A1EC88C440064E111 /* ViewController.m in Sources */,
+				271F236F1ECE141900D144B6 /* SPServerConfigManager.m in Sources */,
 				27ADA27B1EC980250064E111 /* NSData+SPAES.m in Sources */,
 				27ADA2641EC9246E0064E111 /* SPProxyConnect.m in Sources */,
 				27ADA2471EC88C440064E111 /* main.m in Sources */,

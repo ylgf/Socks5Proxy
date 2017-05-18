@@ -11,7 +11,7 @@
 @interface ViewController : NSViewController
 
 @property (weak) IBOutlet NSTextField *receivedLabel;
-@property (weak) IBOutlet NSButton *checkBox;
+@property (weak) IBOutlet NSComboBox *encryptionList;
 
 @end
 

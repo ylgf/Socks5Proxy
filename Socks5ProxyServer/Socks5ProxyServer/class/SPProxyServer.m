@@ -34,6 +34,10 @@
     return self;
 }
 
++ (NSArray *)encrpyTypes {
+    return @[@"aes_256_cfb", @"empty"];
+}
+
 - (void)start {
     NSError *error;
     BOOL isListen = [_listenSocket acceptOnPort:_listenPort error:&error];

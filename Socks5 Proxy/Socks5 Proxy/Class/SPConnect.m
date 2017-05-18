@@ -89,6 +89,7 @@
 
 - (void)socket:(GCDAsyncSocket *)socket transFormingData:(NSData *)data {
     if (socket == _inComeSocket) {
+        DDLogVerbose(@"Connect Success: Send %ld counts Data to Remote Server", data.length);
         if (_delegate && [_delegate respondsToSelector:@selector(connectFromIncomeData:)]) {
             [_delegate connectFromIncomeData:data.length];
         }
@@ -102,6 +103,7 @@
     }
     
     if (socket == _outGoSocket) {
+        DDLogVerbose(@"Connect Success: receive %ld counts Data to Remote Server", data.length);
         if (_delegate && [_delegate respondsToSelector:@selector(connectFromOutgoData:)]) {
             [_delegate connectFromOutgoData:data.length];
         }
