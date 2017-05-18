@@ -261,7 +261,7 @@
 // 解析IPV4，获得对应的请求端口
 - (void)socksConnectIPV4:(NSData *)data socket:(GCDAsyncSocket *)socket {
     uint8_t *address = malloc(INET_ADDRSTRLEN * sizeof(uint8_t));
-    // 将地址从二进制转换为是进制
+    // 将地址从二进制转换为十进制
     inet_ntop(AF_INET, data.bytes, (char *)address, INET_ADDRSTRLEN);
     _requestHost = [[NSString alloc] initWithBytesNoCopy:address length:INET_ADDRSTRLEN encoding:NSUTF8StringEncoding freeWhenDone:YES];
     [socket readDataToLength:2 withTimeout:TIMEOUT_CONNECT tag:SOCKS_CONNECT_PORT];
@@ -301,7 +301,7 @@
     if (outgoConnect) {
         DDLogVerbose(@"connect outgo host:%@ port:%d success", _requestHost, _requestPort);
     } else {
-        DDLogVerbose(@"connect outgo host:%@ port:%d failure。 reason: code: %ld userInfo: %@", _requestHost, _requestPort, (long)error.code, error.userInfo);
+        DDLogVerbose(@"connect outgo host:%@ port:%d failed。 reason: code: %ld userInfo: %@", _requestHost, _requestPort, (long)error.code, error.userInfo);
     }
 }
 
@@ -349,16 +349,8 @@
 }
 
 - (void)socketResponseSocket:(GCDAsyncSocket *)socket {
-    //将数据写入outgo socket 后，等待 outgo 反馈数据，同时继续等待 income 将数据传输过来。
-    if (socket == _outGoSocket) {
-        [_outGoSocket readDataWithTimeout:-1 tag:SOCKS_INCOMING_READ];
-        [_inComeSocket readDataWithTimeout:-1 tag:SOCKS_OUTGOING_READ];
-    }
-    //将数据写入income socket 后，等待 income 反馈数据，同时继续等待 outgo 将数据传输过来。
-    if (socket == _inComeSocket) {
-        [_inComeSocket readDataWithTimeout:-1 tag:SOCKS_OUTGOING_READ];
-        [_outGoSocket readDataWithTimeout:-1 tag:SOCKS_INCOMING_READ];
-    }
+    [_outGoSocket readDataWithTimeout:-1 tag:SOCKS_INCOMING_READ];
+    [_inComeSocket readDataWithTimeout:-1 tag:SOCKS_OUTGOING_READ];
 }
 
 #pragma mark - Check Method

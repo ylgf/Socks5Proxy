@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Socks5 Proxy/ViewController.m"
-            timestampString = "516597144.086839"
+            filePath = "Socks5 Proxy/Class/SPConnect.m"
+            timestampString = "516725998.596676"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "-socket:didReadData:withTag:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

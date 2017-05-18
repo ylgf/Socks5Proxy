@@ -40,3 +40,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #define TIMEOUT_CONNECT       8.00
 #define TIMEOUT_READ          5.00
 #define TIMEOUT_TOTAL        80.00
+
+typedef NS_ENUM(NSUInteger, SPIPAddressType) {
+    SPIPv4Address = 1,
+    SPDomainAddress = 3,
+    SPIPv6Address = 4,
+};

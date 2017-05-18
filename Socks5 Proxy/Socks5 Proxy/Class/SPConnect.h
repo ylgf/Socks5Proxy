@@ -18,14 +18,24 @@
 
 @end
 
+@protocol SPConnectDelegate <NSObject>
 
+- (void)connectFromIncomeData:(NSUInteger) dataLength;
+- (void)connectFromOutgoData:(NSUInteger) dataLength;
+
+@end
 
 @interface SPConnect : NSObject
 
+@property (nonatomic, weak) id<SPConnectDelegate> delegate;
+@property (nonatomic, assign) NSUInteger dataTotalRead;
+@property (nonatomic, assign) NSUInteger dataTotalWrite;
 
 - (instancetype)initWithSocket:(GCDAsyncSocket*) socket remoteConfig:(SPRemoteConfig *)config;
-
+- (instancetype)initWithSocket:(GCDAsyncSocket *)socket;
 - (void)startConnectWithData:(NSData *)data;
+- (void)startConnect;
 - (void)disconnect;
+- (BOOL)checkSocket:(GCDAsyncSocket *)socket;
 
 @end

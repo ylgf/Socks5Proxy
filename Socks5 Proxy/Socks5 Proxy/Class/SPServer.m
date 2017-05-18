@@ -78,6 +78,26 @@
     [conn startConnectWithData:data];
 }
 
+- (void)socket:(GCDAsyncSocket *)sock didAcceptNewSocket:(GCDAsyncSocket *)newSocket {
+    NSLog(@"local:host:%@ port:%d", newSocket.localHost, newSocket.localPort);
+    NSLog(@"remote:host:%@ port:%d", newSocket.connectedHost, newSocket.connectedPort);
+    
+    BOOL socketExist = NO;
+    
+    for (SPConnect *conn in _connects) {
+        if ([conn checkSocket:newSocket]) {
+            socketExist = YES;
+            break;
+        }
+    }
+    
+    if (newSocket && !socketExist) {
+        SPConnect *conn = [[SPConnect alloc] initWithSocket:newSocket];
+        [_connects addObject:conn];
+        [conn startConnect];
+    }
+}
+
 - (void)receiveNotification:(NSNotification *) notification {
     if (notification.name == receiveStringNotification) {
         NSDictionary *userInfo = notification.userInfo;
