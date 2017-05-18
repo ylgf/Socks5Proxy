@@ -10,6 +10,7 @@
 #import "GCDAsyncSocket.h"
 #import "SPSocketUtil.h"
 #import "NSData+SPAES.h"
+#import "SPServerConfigManager.h"
 
 // 网络参数库
 #include <arpa/inet.h>
@@ -310,7 +311,10 @@
     // 将从income收到的数据发往outgo
     if (socket == _inComeSocket) {
         DDLogVerbose(@"connect: Send %ld data", data.length);
-        [_outGoSocket writeData:data withTimeout:-1 tag:SOCKS_OUTGOING_WRITE];
+        
+        NSData *transData = [[SPServerConfigManager shared].encryption isEqualToString:@"empty"] ? data : [data aes256_decrypt:@"helloworld"];
+        
+        [_outGoSocket writeData:transData withTimeout:-1 tag:SOCKS_OUTGOING_WRITE];
         _totalBytesWritten += data.length;
         
         if (_delegate && [_delegate respondsToSelector:@selector(socket:didWriteDataLength:)]) {
@@ -321,7 +325,10 @@
     //将从outGo收到的数据发往inCome
     if (socket == _outGoSocket) {
         DDLogVerbose(@"connect: received %ld data", data.length);
-        [_inComeSocket writeData:data withTimeout:-1 tag:SOCKS_INCOMING_WRITE];
+        
+        NSData *transData = [[SPServerConfigManager shared].encryption isEqualToString:@"empty"] ? data : [data aes256_encrypt:@"helloworld"];
+        
+        [_inComeSocket writeData:transData withTimeout:-1 tag:SOCKS_INCOMING_WRITE];
         _totalBytesRead += data.length;
         
         if (_delegate && [_delegate respondsToSelector:@selector(socket:didReadDataLength:)]) {

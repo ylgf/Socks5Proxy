@@ -25,6 +25,9 @@
 @property (nonatomic, copy) NSString *remoteURL;
 @property (nonatomic, assign) int16_t remotePort;
 
+@property (nonatomic, assign) BOOL startConnectRequest;
+@property (nonatomic, assign) BOOL finishConnect;
+
 @end
 
 @implementation SPConnect
@@ -35,6 +38,8 @@
         _remoteURL = [SPConfigManager shared].remoteAddress;
         _remotePort = [SPConfigManager shared].remotePort;
         _outGoSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("com.zkhCreator.socket.queue", 0)];
+        _startConnectRequest = NO;
+        _finishConnect = NO;
     }
     
     return self;
@@ -85,8 +90,6 @@
 
 
 #pragma mark - After Read Method
-
-
 - (void)socket:(GCDAsyncSocket *)socket transFormingData:(NSData *)data {
     if (socket == _inComeSocket) {
         DDLogVerbose(@"Connect Success: Send %ld counts Data to Remote Server", data.length);
@@ -95,8 +98,27 @@
         }
         
         _dataTotalWrite += data.length;
-        [_outGoSocket writeData:data withTimeout:-1 tag:SOCKS_OUTGOING_WRITE];
         
+        NSData *encryptionData;
+        // 首先判断是否已经完成连接，完成连接后的内容才进行加密
+        if (_finishConnect) {
+            // 已经完成连接
+            if ([[SPConfigManager shared].encrypt isEqualToString:@"empty"]) {
+                encryptionData = data;
+            } else {
+                encryptionData = [data aes256_encrypt:@"helloworld"];
+            }
+        } else {
+            // 未完成连接
+            encryptionData = data;
+        }
+        
+        
+        if (!_startConnectRequest && [self checkRequestResponseHeader:data]) {
+            _startConnectRequest = YES;
+        }
+        
+        [_outGoSocket writeData:encryptionData withTimeout:-1 tag:SOCKS_OUTGOING_WRITE];
         [_outGoSocket readDataWithTimeout:-1 tag:SOCKS_OUTGOING_READ];
         [_inComeSocket readDataWithTimeout:-1 tag:SOCKS_INCOMING_READ];
         return ;
@@ -109,11 +131,59 @@
         }
         
         _dataTotalRead += data.length;
-        [_inComeSocket writeData:data withTimeout:-1 tag:SOCKS_INCOMING_WRITE];
+        
+        NSData *decryptionData;
+        if (_finishConnect) {
+            // 已经完成连接
+            if ([[SPConfigManager shared].encrypt isEqualToString:@"empty"]) {
+                decryptionData = data;
+            } else {
+                decryptionData = [data aes256_decrypt:@"helloworld"];
+            }
+        } else {
+            // 未完成连接
+            decryptionData = data;
+        }
+        
+        if (!_finishConnect && _startConnectRequest && [self remoteConnectToRequestURL:data]) {
+            _finishConnect = YES;
+        }
+        
+        [_inComeSocket writeData:decryptionData withTimeout:-1 tag:SOCKS_INCOMING_WRITE];
         [_inComeSocket readDataWithTimeout:-1 tag:SOCKS_INCOMING_READ];
         [_outGoSocket readDataWithTimeout:-1 tag:SOCKS_OUTGOING_READ];
         return ;
     }
+}
+
+- (BOOL)checkRequestResponseHeader:(NSData *)data {
+    uint8_t *bytes = (uint8_t *)data.bytes;
+    uint8_t version = bytes[0];
+    uint8_t rep = bytes[1];
+    
+    if (version == 0x05 && rep == 0x01) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)remoteConnectToRequestURL:(NSData *)data {
+    uint8_t *bytes = (uint8_t *)data.bytes;
+    uint8_t version = bytes[0];
+    uint8_t rep = bytes[1];
+    uint8_t rsv = bytes[2];
+    uint8_t atyp = bytes[3];
+    
+    if (version == 0x05 && rep == 0x00 && rsv == 0x00 && atyp == 0x03) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)checkSocket:(GCDAsyncSocket *)socket {
+    return socket == _outGoSocket;
 }
 
 @end
