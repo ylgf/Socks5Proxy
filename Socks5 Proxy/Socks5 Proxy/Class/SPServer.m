@@ -10,14 +10,15 @@
 #import "SPConnect.h"
 #import "GCDAsyncSocket.h"
 #import "SPSocketUtil.h"
+#import "SPConfigManager.h"
 
 @interface SPServer()<GCDAsyncSocketDelegate>
 
-@property (nonatomic, strong) NSString *address;
-@property (nonatomic, assign) NSInteger port;
+@property (nonatomic, assign) uint16_t localPort;
+@property (nonatomic, copy) NSString *remoteURL;
+@property (nonatomic, assign) uint16_t remotePort;
+
 @property (nonatomic, strong) NSMutableArray<SPConnect *> *connects;
-@property (nonatomic, copy) NSString *encryptionType;
-@property (nonatomic, strong) GCDAsyncSocket *localSocket;
 
 @end
 
@@ -27,13 +28,13 @@
     return @[@"aes_256_cfb", @"empty"];
 }
 
-- (instancetype)initWithHost:(NSString *)address port:(NSInteger)port encryptionType:(NSString *)type {
+- (instancetype)init {
     self = [super init];
     if (self) {
-        _address = address;
-        _port = port;
         _connects = [NSMutableArray array];
-        _encryptionType = type;
+        _localPort = [SPConfigManager shared].localPort;
+        _remoteURL = [SPConfigManager shared].remoteAddress;
+        _remotePort = [SPConfigManager shared].remotePort;
         
         _localSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("zkhCreator.proxy.queue.local", 0)];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(receiveNotification:) name:receiveStringNotification object:nil];
@@ -48,7 +49,8 @@
 
 - (void)start {
     NSError *error = nil;
-    BOOL isListenToLocalPort = [_localSocket acceptOnPort:_port error:&error];
+
+    BOOL isListenToLocalPort = [_localSocket acceptOnPort:_localPort error:&error];
     
     if (isListenToLocalPort) {
         DDLogVerbose(@"本地接口监听成功");
@@ -70,10 +72,8 @@
 }
 
 - (void)sendDataToRemote:(NSData *)data {
-    // 设置服务端的相关参数
-    SPRemoteConfig *config = [[SPRemoteConfig alloc] initWithAddress:_address port:55556];
     // 创建一个connect，用于数据传输。
-    SPConnect *conn = [[SPConnect alloc] initWithSocket:_localSocket remoteConfig:config];
+    SPConnect *conn = [[SPConnect alloc] initWithSocket:_localSocket];
     [_connects addObject:conn];
     [conn startConnectWithData:data];
 }
@@ -93,10 +93,31 @@
     
     if (newSocket && !socketExist) {
         SPConnect *conn = [[SPConnect alloc] initWithSocket:newSocket];
+        conn.tag = _connects.count;
         [_connects addObject:conn];
         [conn startConnect];
     }
 }
+//
+//- (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag {
+//    
+//    SPConnect *currentConnect;
+//    for (SPConnect *connect in _connects) {
+//        if (tag == connect.tag) {
+//            currentConnect = connect;
+//            break;
+//        }
+//    }
+//    if (sock == currentConnect.inComeSocket) {
+//        
+//        [currentConnect.outGoSocket writeData:data withTimeout:-1 tag:SOCKS_OUTGOING_WRITE];
+//    } else {
+//        [_localSocket writeData:data withTimeout:-1 tag:SOCKS_INCOMING_WRITE];
+//    }
+//    
+//    [_localSocket readDataWithTimeout:-1 tag:SOCKS_INCOMING_READ];
+//    [currentConnect.outGoSocket readDataWithTimeout:-1 tag:SOCKS_OUTGOING_READ];
+//}
 
 - (void)receiveNotification:(NSNotification *) notification {
     if (notification.name == receiveStringNotification) {

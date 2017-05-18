@@ -9,15 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "GCDAsyncSocket.h"
 
-@interface SPRemoteConfig : NSObject
-
-@property (nonatomic, copy, readonly) NSString *remoteAddress;
-@property (nonatomic, assign, readonly) NSInteger remotePort;
-
-- (instancetype)initWithAddress:(NSString *)address port:(NSInteger)port;
-
-@end
-
 @protocol SPConnectDelegate <NSObject>
 
 - (void)connectFromIncomeData:(NSUInteger) dataLength;
@@ -30,8 +21,10 @@
 @property (nonatomic, weak) id<SPConnectDelegate> delegate;
 @property (nonatomic, assign) NSUInteger dataTotalRead;
 @property (nonatomic, assign) NSUInteger dataTotalWrite;
+@property (nonatomic, assign) NSUInteger tag;
+@property (nonatomic, strong) GCDAsyncSocket *outGoSocket;
+@property (nonatomic, strong) GCDAsyncSocket *inComeSocket;
 
-- (instancetype)initWithSocket:(GCDAsyncSocket*) socket remoteConfig:(SPRemoteConfig *)config;
 - (instancetype)initWithSocket:(GCDAsyncSocket *)socket;
 - (void)startConnectWithData:(NSData *)data;
 - (void)startConnect;

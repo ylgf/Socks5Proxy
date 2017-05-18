@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GCDAsyncSocket.h"
 
 @interface SPServer : NSObject
+@property (nonatomic, strong) GCDAsyncSocket *localSocket;
 
-- (instancetype)initWithHost:(NSString *)address port:(NSInteger)port encryptionType:(NSString *)type;
 - (void)start;
 - (void)stop;
 - (void)sendStringToRemote:(NSString *)string;

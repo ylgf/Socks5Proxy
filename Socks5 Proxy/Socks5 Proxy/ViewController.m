@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SPServer.h"
 #import "SPSocketUtil.h"
+#import "SPConfigManager.h"
 
 @interface ViewController()
 
@@ -50,7 +51,13 @@
         return ;
     }
 
-    _server = [[SPServer alloc] initWithHost:_hostLabel.stringValue port:_PortLabel.integerValue encryptionType: [[SPServer encrpyTypes] objectAtIndex:_methodTextField.indexOfSelectedItem]];
+    [SPConfigManager shared].localAddress = _hostLabel.stringValue;
+    [SPConfigManager shared].localPort = _PortLabel.integerValue;
+    [SPConfigManager shared].encrypt = [[SPServer encrpyTypes] objectAtIndex:_methodTextField.indexOfSelectedItem];
+    [SPConfigManager shared].remotePort = 55556;
+    [SPConfigManager shared].remoteAddress = @"127.0.0.1";
+    
+    _server = [[SPServer alloc] init];
     
     [_sendTF setStringValue:@""];
     [_returnTF setStringValue:@""];

@@ -46,7 +46,8 @@
 
 - (void)connect {
     [_inComeSocket setDelegate:self];
-    [self.inComeSocket readDataToLength:3 withTimeout:TIMEOUT_CONNECT tag:SOCKS_OPEN];
+    [_inComeSocket readDataWithTimeout:-1 tag:SOCKS_OPEN];
+//    [self.inComeSocket readDataToLength:3 withTimeout:TIMEOUT_CONNECT tag:SOCKS_OPEN];
 }
 
 - (void)stop {
@@ -102,8 +103,8 @@
         case SOCKS_CONNECT_INIT:
             [self socketResponseSocketAuth:sock];
             break;
-        case SOCKS_INCOMING_READ:
-        case SOCKS_OUTGOING_READ:
+        case SOCKS_INCOMING_WRITE:
+        case SOCKS_OUTGOING_WRITE:
             [self socketResponseSocket:sock];
             break;
         default:
@@ -308,6 +309,7 @@
 - (void)socksTransformData:(NSData *)data socket:(GCDAsyncSocket *)socket {
     // 将从income收到的数据发往outgo
     if (socket == _inComeSocket) {
+        DDLogVerbose(@"connect: Send %ld data", data.length);
         [_outGoSocket writeData:data withTimeout:-1 tag:SOCKS_OUTGOING_WRITE];
         _totalBytesWritten += data.length;
         
@@ -318,6 +320,7 @@
     
     //将从outGo收到的数据发往inCome
     if (socket == _outGoSocket) {
+        DDLogVerbose(@"connect: received %ld data", data.length);
         [_inComeSocket writeData:data withTimeout:-1 tag:SOCKS_INCOMING_WRITE];
         _totalBytesRead += data.length;
         

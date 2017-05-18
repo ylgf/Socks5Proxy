@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		271F236C1ECD467300D144B6 /* SPConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 271F236B1ECD467300D144B6 /* SPConfigManager.m */; };
 		27596EC31EC866DE00CA64A5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 27596EC21EC866DE00CA64A5 /* AppDelegate.m */; };
 		27596EC61EC866DE00CA64A5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 27596EC51EC866DE00CA64A5 /* main.m */; };
 		27596EC91EC866DE00CA64A5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 27596EC81EC866DE00CA64A5 /* ViewController.m */; };
@@ -40,6 +41,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		271F236A1ECD467300D144B6 /* SPConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPConfigManager.h; path = Class/SPConfigManager.h; sourceTree = "<group>"; };
+		271F236B1ECD467300D144B6 /* SPConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPConfigManager.m; path = Class/SPConfigManager.m; sourceTree = "<group>"; };
 		27596EBE1EC866DE00CA64A5 /* Socks5 Proxy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Socks5 Proxy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		27596EC11EC866DE00CA64A5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		27596EC21EC866DE00CA64A5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -146,6 +149,8 @@
 				27596EE41EC8827200CA64A5 /* SPSocketUtil.h */,
 				27ADA29A1ECB4C720064E111 /* NSString+convertData.h */,
 				27ADA29B1ECB4C720064E111 /* NSString+convertData.m */,
+				271F236A1ECD467300D144B6 /* SPConfigManager.h */,
+				271F236B1ECD467300D144B6 /* SPConfigManager.m */,
 			);
 			name = class;
 			sourceTree = "<group>";
@@ -242,6 +247,7 @@
 				27596EE51EC8827200CA64A5 /* SPSocketUtil.h in Sources */,
 				27596EE21EC8683200CA64A5 /* SPServer.m in Sources */,
 				27596EDF1EC8682400CA64A5 /* SPConnect.m in Sources */,
+				271F236C1ECD467300D144B6 /* SPConfigManager.m in Sources */,
 				27ADA29C1ECB4C720064E111 /* NSString+convertData.m in Sources */,
 				27596EC61EC866DE00CA64A5 /* main.m in Sources */,
 				27596EC31EC866DE00CA64A5 /* AppDelegate.m in Sources */,

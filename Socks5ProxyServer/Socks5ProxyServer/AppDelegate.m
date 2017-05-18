@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "SPSocketUtil.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,16 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    // Xcode log
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
+    // Mac OS X log
+    [DDLog addLogger:[DDASLLogger sharedInstance]];
+    // write to File
+    DDFileLogger *fileLog = [[DDFileLogger alloc] init];
+    if (fileLog) {
+        NSLog(@"%@", fileLog.currentLogFileInfo.filePath);
+        [DDLog addLogger:fileLog];
+    }
 }
 
 
