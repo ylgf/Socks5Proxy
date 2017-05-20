@@ -26,5 +26,6 @@
 - (instancetype)initWithSocket:(GCDAsyncSocket*)socket listenPort:(NSInteger)listenPort;
 - (void)connect;
 - (void)stop;
+- (BOOL)longTimeNoSee;
 
 @end

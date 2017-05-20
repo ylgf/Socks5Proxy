@@ -28,6 +28,9 @@
 @property (nonatomic, assign) NSUInteger totalBytesWritten;     // 从income获得的字符总长度，即发往outgo的总长度
 @property (nonatomic, assign) NSUInteger totalBytesRead;    // 从outgo服务端获取的字符总长度，即发往income的总长度
 
+@property (nonatomic, strong) NSDate *lastMessageDate;
+@property (nonatomic, strong) NSMutableData *allData;
+
 @end
 
 @implementation SPProxyConnect
@@ -39,6 +42,7 @@
     
     if (self = [super init]) {
         _inComeSocket = socket;
+        _lastMessageDate = [NSDate date];
         _outGoSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("com.zkhCreator.server.request.queue", 0)];
     }
     
@@ -308,6 +312,8 @@
 }
 
 - (void)socksTransformData:(NSData *)data socket:(GCDAsyncSocket *)socket {
+    _lastMessageDate = [NSDate date];
+    
     // 将从income收到的数据发往outgo
     if (socket == _inComeSocket) {
         DDLogVerbose(@"connect: Send %ld data", data.length);
@@ -324,8 +330,8 @@
     
     //将从outGo收到的数据发往inCome
     if (socket == _outGoSocket) {
-        DDLogVerbose(@"connect: received %ld data", data.length);
-        
+        DDLogVerbose(@"connect: received %ld data from url: %@ : %d", data.length, _requestHost, _requestPort);
+        [_allData appendData:data];
         NSData *transData = [[SPServerConfigManager shared].encryption isEqualToString:@"empty"] ? data : [data aes256_encrypt:@"helloworld"];
         
         [_inComeSocket writeData:transData withTimeout:-1 tag:SOCKS_INCOMING_WRITE];
@@ -383,6 +389,14 @@
 
 - (BOOL)checkSocket:(GCDAsyncSocket *)socket {
     return _inComeSocket == socket;
+}
+
+- (BOOL)longTimeNoSee {
+    if ([NSDate date].timeIntervalSince1970 - _lastMessageDate.timeIntervalSince1970 > 30) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

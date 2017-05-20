@@ -39,6 +39,21 @@
 }
 
 - (void)start {
+    // 设置定时器用于查看是否没有连接
+    __weak typeof(self) weakSelf = self;
+    NSTimer *timer = [NSTimer timerWithTimeInterval:5.f repeats:YES block:^(NSTimer * _Nonnull timer) {
+        NSLog(@"check Timer");
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        for (SPProxyConnect *connect in strongSelf.conns) {
+            if ([connect longTimeNoSee]) {
+                [connect stop];
+                [strongSelf.conns removeObject:connect];
+            }
+        }
+    }];
+    
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+    
     NSError *error;
     BOOL isListen = [_listenSocket acceptOnPort:_listenPort error:&error];
     
