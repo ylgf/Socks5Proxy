@@ -43,7 +43,9 @@
     if (self = [super init]) {
         _inComeSocket = socket;
         _lastMessageDate = [NSDate date];
+        _allData = [NSMutableData data];
         _outGoSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_queue_create("com.zkhCreator.server.request.queue", 0)];
+        
     }
     
     return self;
@@ -57,6 +59,17 @@
 
 - (void)stop {
     [_inComeSocket disconnect];
+    
+    NSString *content = [[NSString alloc] initWithData:_allData encoding:NSUTF8StringEncoding];
+    NSError *error;
+    BOOL saved = [content writeToFile:[NSString stringWithFormat:@"/Users/Mike/Desktop/%@.txt", [NSDate date]] atomically:YES encoding:NSUTF8StringEncoding error:&error];
+    if (saved) {
+        DDLogVerbose(@"Save success");
+    } else {
+        DDLogWarn(@"Saved failed");
+    }
+    
+    
 }
 
 #pragma mark - CocoaAsyncSocketDelegate
